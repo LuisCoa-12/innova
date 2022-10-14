@@ -1,4 +1,3 @@
-<%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es-ES" data-website-id="1" data-main-object="website.page(4,)" data-oe-company-name="innovautp"
@@ -8,10 +7,6 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="assets/css/innova.css">
     </head>
-    <%@page import="Controlador.GestionarUsuarios"%>
-    <%@page import="java.util.List"%>
-    <% GestionarUsuarios gu = new GestionarUsuarios();
-        List<Usuario> lst = gu.consultarUsuarios();%>
     <body class="">
         <div class="">
             <jsp:include page="vistas/header.jsp"/>
@@ -169,22 +164,6 @@
                             </div>
                         </div>
                     </section>
-                    <table border="1">
-                        <tr>
-                            <td><b>ID</b></td>
-                            <td><b>NOMBRE</b></td>
-                        </tr>
-                        <%
-                            for (Usuario u : lst) {
-                        %>
-                        <tr>
-                            <td><%=u.getId()%></td>
-                            <td><%=u.getNombre()%></td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </table>
                 </div>
             </main>
             <footer>
