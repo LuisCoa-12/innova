@@ -1,0 +1,143 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.header {
+    padding-bottom: 45px;
+    padding-left: 50px;
+    background-color: white;
+    margin: auto;
+    width: auto;
+}
+ul, ol {
+    list-style: none;
+}
+.nav li a {
+    background-color: rgb(255, 255, 255);
+    color: rgb(121, 121, 121);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 17px;
+    display: block;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-right: 15px;
+}
+.nav li img {
+    left: 10px;
+}
+.nav > li {
+    float: left;
+}
+.nav li a:hover {
+    color: black;
+}
+.nav li ul {
+    display: none;
+    position: absolute;
+    min-width: 140px;
+}
+.nav li:hover > ul {
+    display: block;
+}
+.nav .right {
+    float: right;
+    padding-right: 20px;
+}
+.nav .button {
+    float: right;
+    display: block;
+    background-color: rgb(227, 39, 39);
+    color: white;
+    border-radius: 25px;
+    padding: 5px 15px;
+}
+.nav .button:hover {
+    color: white;
+    background-color: rgb(201, 19, 19);
+}
+.fondo {
+    margin: 0px;
+    background: linear-gradient(rgba(27, 27, 27, 0.557), rgba(0, 0, 0, 0.53)), url(../images/fondo-innovaaqp.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.fondo .titulo {
+    font-size: 100px;
+    color: white;
+    text-align: center;
+    text-shadow: 10px 10px 3px rgb(0, 0, 0);
+}
+.fondo .texto {
+    font-size: 25px;
+    text-align: center;
+    color: white;
+}
+.list-servicio {
+    padding-top: 20px;
+}
+.list-servicio .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.list-servicio .container .row {
+    flex-wrap: wrap;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.row .col-servicio {
+    margin-bottom: 20px;
+    height: 200px;
+    text-align: center;
+    display: inline-table;
+}
+.col-servicio img {
+    margin-bottom: 15px;
+    max-height: 130px;
+    vertical-align: middle;
+}
+.col-servicio {
+    align-items: center;
+    margin: 0px 6%;
+}
+.nombre-servicio {
+    width: 10%;
+}
+.nombre-servicio .button {
+    display: block;
+    background-color: rgb(227, 39, 39);
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    width: 120px;
+}
+.nombre-servicio .button:hover {
+    color: white;
+    background-color: rgb(201, 19, 19);
+}
+.venta-accesorios {
+    color: white;
+    text-align: center;
+    padding: 20px 0px;
+    font-size: 50px;
+}
+.container-register {
+    margin: 0px 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.form-col {
+    width: 30%;
+}
+.form-col div {
+    width: 230px;
+}
