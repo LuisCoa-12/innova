@@ -1,0 +1,45 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+**/target/
+/target/
+*/target/*
+.classpath
+.project
+.settings
+
+InnovaAqp/build.xml
+InnovaAqp/build/web/WEB-INF/classes/Controlador/GestionarUsuarios.class
+InnovaAqp/build/web/WEB-INF/classes/Modelo/Dao/Conexion.class
+InnovaAqp/build/web/WEB-INF/classes/Modelo/Dao/DaoUsuario.class
+InnovaAqp/build/web/WEB-INF/classes/Modelo/Usuario.class
+InnovaAqp/build/web/login.jsp
+InnovaAqp/nbproject/build-impl.xml
+InnovaAqp/nbproject/genfiles.properties
+InnovaAqp/nbproject/private/private.properties
+InnovaAqp/nbproject/project.properties
+InnovaAqp/nbproject/project.xml
+InnovaAqp/build/web/WEB-INF/classes/.netbeans_automatic_build
+InnovaAqp/build/web/WEB-INF/classes/.netbeans_update_resources
+
+
+
+
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar

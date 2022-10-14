@@ -12,16 +12,14 @@
     <div>
         <jsp:include page="vistas/header.jsp"/>
         <main>
-
             <div class="oe_website_login_container">
-                <form class="oe_login_form" role="form" method="post" style="width: 400px; margin-left: 30%;"
-                      onsubmit="this.action = & #39; /web/login & #39; + location.hash" action="https://innovautp2.odoo.com/web/login">
+                <form class="oe_login_form" role="form" method="post" style="width: 400px; margin-left: 30%;" action="Login">
                     <input type="hidden" name="csrf_token" value="886564a6b5fed9c1a8fdfe5d6f7295856e0521abo1696916053" />
                     <br>
                     <h2>Iniciar sesion</h2>
                     <div class="form-group field-login">
                         <label for="login">Correo electrónico</label>
-                        <input type="text" placeholder="Correo electrónico" name="login" id="login" required="required"
+                        <input type="text" placeholder="Correo electrónico" name="correo" id="login" required="required"
                                autofocus="autofocus" autocapitalize="off" class="form-control " />
                     </div>
 

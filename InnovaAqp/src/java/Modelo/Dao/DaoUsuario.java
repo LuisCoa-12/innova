@@ -5,8 +5,12 @@ import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 public class DaoUsuario extends Conexion{
     public List<Usuario> consultarTodos() {
@@ -64,5 +68,33 @@ public class DaoUsuario extends Conexion{
             }
         }
         return find;
+    }
+
+    public String login(String usuario, String password ){
+        String resultado = null;
+        Connection conexion = obtenerConexion();
+        String sql = "SELECT nombre_persona FROM persona WHERE correo=? AND contrasena=?";
+        try {
+            PreparedStatement stm = conexion.prepareStatement(sql);
+            stm.setString(1, usuario);
+            stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                System.out.println(rs.getString("nombre_persona"));
+                resultado = rs.getString("nombre_persona");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new RuntimeException();            
+        }
+        finally{
+            try {
+                conexion.close();
+            } catch (Exception e) {
+                System.out.println("Error" + e);
+                throw new RuntimeException(e);
+            }
+        }
+        return resultado;
     }
 }
