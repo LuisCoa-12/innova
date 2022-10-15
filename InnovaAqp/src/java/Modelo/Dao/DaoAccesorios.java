@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DaoAccesorios extends Conexion{
     public List<Accesorio> consultarTodos() {
-        List<Accesorio> lst = new ArrayList<Accesorio>();
+        List<Accesorio> lst = new ArrayList<>();
         Connection cnx = obtenerConexion();
         String sql = "SELECT * FROM productos";
         try {
@@ -29,13 +29,6 @@ public class DaoAccesorios extends Conexion{
             }
         } catch (Exception e) {
             throw new RuntimeException();
-        }
-        finally{
-            try {
-                cnx.close();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
         }
         return lst;
     }

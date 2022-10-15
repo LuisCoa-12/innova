@@ -8,7 +8,6 @@
 
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="assets/css/innova.css">
     </head>
     <% GestionAccesorios ga = new GestionAccesorios();
         List<Accesorio> lst = ga.mostrarAccesorios(); %>
@@ -110,6 +109,7 @@
                             </div>
                             <div>
                                 <div class="data"><a href=""><%= a.getNombre()%></a></div>
+                                <div class="data"><a href=""><%= a.getMarca() %></a></div>
                                 <div class="data"><a href="">S/. <%= a.getPrecio()%></a></div>
                             </div>
                         </div>

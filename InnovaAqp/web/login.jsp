@@ -11,7 +11,7 @@
         <div>
             <main>
                 <div class="">
-                    <form class="login-form" role="form" method="post" action="https://innovautp2.odoo.com/web/login">
+                    <form class="login-form" role="form" method="post">
                         <h2>Iniciar sesion</h2>
                         <div class="form-group">
                             <label for="login">Correo electrónico</label><br>

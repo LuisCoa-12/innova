@@ -1,4 +1,6 @@
-<%@page import="Modelo.Usuario"%>
+<%@page import="Modelo.Accesorio"%>
+<%@page import="Controlador.GestionAccesorios"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es-ES" data-website-id="1" data-main-object="website.page(4,)" data-oe-company-name="innovautp"
@@ -6,15 +8,12 @@
 
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="assets/css/innova.css">
     </head>
-    <%@page import="Controlador.GestionarUsuarios"%>
-    <%@page import="java.util.List"%>
-    <% GestionarUsuarios gu = new GestionarUsuarios();
-        List<Usuario> lst = gu.consultarUsuarios();%>
+    <% GestionAccesorios ga = new GestionAccesorios();
+        List<Accesorio> lst = ga.mostrarAccesorios(); %>
+    <jsp:include page="vistas/header.jsp"/>
     <body class="">
         <div class="">
-            <jsp:include page="vistas/header.jsp"/>
             <main>
                 <div>
                     <div class="fondo">
@@ -98,100 +97,29 @@
                     <div style="background-color: rgba(0, 0, 0, 0) !important; background-image: linear-gradient(135deg, rgb(245, 10, 10) 0%, rgb(39, 38, 39) 100%);">
                         <h2 class="venta-accesorios">Venta de accesorios</h2>
                     </div>
-                    <section class="list-servicio">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/diagnostic.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Diagnostico General</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/mantenimiento.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Mantenimietno preventivo</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/cambio_pantalla.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Cambio de pantalla</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/cambio_bateria.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Cambio de bateria</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/reparacion_software.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Reparacion del software</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/reparacion_conectividad.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Reparacion de problemas de conectividad</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/reparacion_mojado.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Reparacio de celular mojado</a>
-                                    </div>
-                                </div>
-                                <div class="col-servicio">
-                                    <a href="">
-                                        <img src="dist/img/img/reemplazo_botones.png" alt="">
-                                    </a>
-                                    <div class="nombre-servicio">
-                                        <a href="" class="button">Reemplazo de botones</a>
-                                    </div>
-                                </div>
-                                <br>
+                    <section class="list-accesorios" style="background-color: rgba(0, 0, 0, 0) !important; background-image: linear-gradient(135deg, rgb(245, 10, 10) 0%, rgb(39, 38, 39) 100%);">
+                        <%
+                            for (Accesorio a : lst) {
+                        %>
+                        <div class="accesorio">
+                            <div>
+                                <a href="" class="image-accesorio">
+                                    <img src="assets/images/accesorios/<%= a.getImagen()%>">
+                                </a>
+                            </div>
+                            <div>
+                                <div class="data"><a href=""><%= a.getNombre()%></a></div>
+                                <div class="data"><a href=""><%= a.getMarca() %></a></div>
+                                <div class="data"><a href="">S/. <%= a.getPrecio()%></a></div>
                             </div>
                         </div>
-                    </section>
-                    <table border="1">
-                        <tr>
-                            <td><b>ID</b></td>
-                            <td><b>NOMBRE</b></td>
-                        </tr>
-                        <%
-                            for (Usuario u : lst) {
-                        %>
-                        <tr>
-                            <td><%=u.getId()%></td>
-                            <td><%=u.getNombre()%></td>
-                        </tr>
                         <%
                             }
                         %>
-                    </table>
+                    </section>
                 </div>
             </main>
-            <footer>
-
-            </footer>
         </div>
-
     </body>
-
+    <jsp:include page="vistas/footer.jsp"/>
 </html>
