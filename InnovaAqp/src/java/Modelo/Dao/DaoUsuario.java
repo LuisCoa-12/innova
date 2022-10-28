@@ -56,7 +56,7 @@ public class DaoUsuario extends Conexion {
                 us.setApePat(rs.getString(3));
                 us.setApeMat(rs.getString(4));
                 us.setImagen(rs.getString(10));
-                us.setIdRol(Integer.parseInt(rs.getString(14)));
+                us.setIdRol(Integer.parseInt(rs.getString(15)));
                 lst.add(us);
             }
         } catch (SQLException e) {
