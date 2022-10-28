@@ -1,0 +1,26 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/innova.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<%
+    if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+    }
+    String username = (String) session.getAttribute("username");
+    String imagen = (String) session.getAttribute("imagen");
+%>
+<header>
+    <div class="">
+        <div class="header">
+            <ul class="nav">
+                <li><a href="<%=request.getContextPath()%>/vistas/administrador/index-admin.jsp"><img src="<%=request.getContextPath()%>/assets/images/logo-innova.png" alt=""></a></li>
+                <li><a href="<%=request.getContextPath()%>/vistas/administrador/index-admin.jsp"><span>Inicio</span></a></li>
+                <li><a href="<%=request.getContextPath()%>/vistas/administrador/index-admin.jsp"><span>Agregar Accesorio</span></a></li>
+                <li class="right"><a href="<%=request.getContextPath() %>/Logout" class="button">Cerrar Sesion</a></li>
+                <li class="right"><a href=""><%=username%></a></li>
+                <li class="right">
+                    <img style="width: 40px; height: 40px; border-radius: 15px;" src="<%=request.getContextPath()%>/assets/images/usuarios/<%=imagen%>" alt="alt"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
