@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2022 a las 09:21:54
+-- Tiempo de generación: 28-10-2022 a las 17:13:13
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -118,9 +118,18 @@ CREATE TABLE `equipo` (
 
 CREATE TABLE `especialidad` (
   `id_especialidad` int(11) NOT NULL,
-  `nombre_especialidad` varchar(50) NOT NULL,
-  `experiencia` longtext NOT NULL
+  `nombre_especialidad` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `especialidad`
+--
+
+INSERT INTO `especialidad` (`id_especialidad`, `nombre_especialidad`) VALUES
+(1, 'General'),
+(2, 'Mantenimiento'),
+(3, 'Reparacion de software'),
+(4, 'Reemplazo de piezas');
 
 -- --------------------------------------------------------
 
@@ -166,8 +175,9 @@ CREATE TABLE `persona` (
   `direccion` varchar(50) NOT NULL,
   `correo` varchar(300) NOT NULL,
   `contrasena` varchar(100) NOT NULL,
-  `imagen` varchar(30) NOT NULL,
+  `imagen` varchar(100) NOT NULL,
   `fech_nacimiento` date NOT NULL,
+  `experiencia` longtext NOT NULL,
   `id_especialidad` int(11) DEFAULT NULL,
   `id_horario` int(11) DEFAULT NULL,
   `id_rol` int(11) NOT NULL,
@@ -178,9 +188,20 @@ CREATE TABLE `persona` (
 -- Volcado de datos para la tabla `persona`
 --
 
-INSERT INTO `persona` (`id_persona`, `nombre_persona`, `ape_paterno`, `ape_materno`, `dni`, `telefono`, `direccion`, `correo`, `contrasena`, `imagen`, `fech_nacimiento`, `id_especialidad`, `id_horario`, `id_rol`, `id_distrito`) VALUES
-(2, 'Luis', 'Coa', 'Apaza', '12345678', '987654321', 'direccion', '123456@gmail.com', '123456', '', '2022-10-12', NULL, NULL, 3, 1),
-(3, 'Encargado', 'del taller', '', '12345675', '987654321', 'direccion 2', '123456@gmail.com', '123456', '', '2022-10-03', NULL, NULL, 1, 2);
+INSERT INTO `persona` (`id_persona`, `nombre_persona`, `ape_paterno`, `ape_materno`, `dni`, `telefono`, `direccion`, `correo`, `contrasena`, `imagen`, `fech_nacimiento`, `experiencia`, `id_especialidad`, `id_horario`, `id_rol`, `id_distrito`) VALUES
+(1, 'Luis', 'Coa', 'Apaza', '12345678', '987654321', 'direccion', 'coaapazaluisenrique@gmail.com', '123456', 'empty-photo.png', '2017-09-21', '', NULL, NULL, 1, 2),
+(6, 'Juan', 'Pérez', 'del Corral', '65847214', '456789123', 'Calle de Velázquez, 80 Madrid', 'juan123@gmail.com', 'juan123', 'empty-photo.png', '2000-08-06', '', NULL, NULL, 3, 1),
+(7, 'Martín Elías', 'de los Ríos', 'Acosta', '67954498', '560717696', 'Calle 1234', 'martin.elias@gmail.com', 'martin123', 'empty-photo.png', '2002-07-30', '', NULL, NULL, 3, 1),
+(11, 'Miguel', 'Guzman', 'CÃ©spedes', '97474070', '324036256', 'Avenida Ãlvaro ObregÃ³n', 'miguel@gmail.com', '12331313', 'empty-photo.png', '2001-07-22', '', NULL, NULL, 3, 1),
+(14, 'Ulises', 'Carbajo', 'Lamas', '98765412', '123456987', 'Calle 123', 'ulises.guerra@gmail.com', 'asd', 'empty-photo.png', '2022-10-14', '', NULL, NULL, 3, 1),
+(15, 'Eugenia', 'Gibert', 'Riba', '85974758', '458914319', 'Calle 456789', 'eugenia.gilbert@gmail.com', 'eu123', 'empty-photo.png', '1999-07-30', '', NULL, NULL, 3, 1),
+(16, 'Flavia', 'Amoros', 'Marquez', '41433681', '594632954', 'Calle 123', 'flavia@gmail.com', '12456', 'empty-photo.png', '2022-09-29', '', NULL, NULL, 3, 1),
+(17, 'Ildefonso', 'Varela', 'Arnaiz', '45613948', '12456321', 'Calle 123', 'idelfonso@gmail.com', '123', 'empty-photo.png', '2022-10-12', '', NULL, NULL, 3, 1),
+(18, 'Pancho', 'Noguera', 'Barral', '45613948', '987654321', 'distrito 2', 'pancho.noguera@gmail.com', '123123', 'empty-photo.png', '2022-09-28', '', NULL, NULL, 3, 1),
+(19, 'Lucila', 'Fernandez', 'Calzada', '32657945', '154796328', 'Calle 456789', 'lucila@gmail.com', '44455', 'empty-photo.png', '2022-10-06', '', NULL, NULL, 3, 1),
+(21, 'Eugenia', 'Verdejo', 'CabaÃ±as', '79054720', '289221588', 'Calle 456789', 'eugenia.verdejo@gmail.com', '132165', 'empty-photo.png', '2003-12-27', '', NULL, NULL, 3, 1),
+(22, 'Jacobo', 'Pujadas', 'Anaya', '21398159', '469423263', 'Calle 123', 'jacobo@gmail.com', 'asd', 'empty-photo.png', '2022-10-05', '', NULL, NULL, 3, 1),
+(23, 'Alex', 'Agullo', 'AgustÃ­', '71824593', '712238708', 'Calle 456789', 'alex.agullo@gmail.com', '123', 'empty-photo.png', '2022-02-28', 'Reparacion de celulares por mas de 3 aÃ±os', 1, NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -339,7 +360,8 @@ ALTER TABLE `horarios`
 -- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
-  ADD PRIMARY KEY (`id_persona`,`correo`),
+  ADD PRIMARY KEY (`id_persona`) USING BTREE,
+  ADD UNIQUE KEY `correo` (`correo`),
   ADD KEY `fk_especialidad` (`id_especialidad`),
   ADD KEY `fk_horario` (`id_horario`),
   ADD KEY `fk_rol` (`id_rol`),
@@ -415,7 +437,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `especialidad`
 --
 ALTER TABLE `especialidad`
-  MODIFY `id_especialidad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_especialidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `hoja_servicio`
@@ -433,7 +455,7 @@ ALTER TABLE `horarios`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
