@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2022 a las 17:09:26
+-- Tiempo de generación: 05-12-2022 a las 21:56:31
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -36,15 +36,17 @@ CREATE TABLE `cita` (
   `fech_fabricacion_equipo` int(4) DEFAULT NULL,
   `problema_equipo` varchar(1000) NOT NULL,
   `id_persona` int(11) NOT NULL,
-  `id_tipo_servicio` int(11) NOT NULL
+  `id_tipo_servicio` int(11) NOT NULL,
+  `tipo_atencion` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `cita`
 --
 
-INSERT INTO `cita` (`id_cita`, `pendiente`, `tipo_equipo`, `marca_equipo`, `modelo_equipo`, `fech_fabricacion_equipo`, `problema_equipo`, `id_persona`, `id_tipo_servicio`) VALUES
-(4, 0, 'Celular', 'Xiaomi', 'Mi Pad 5', 2022, 'La bateria no dura nada', 22, 4);
+INSERT INTO `cita` (`id_cita`, `pendiente`, `tipo_equipo`, `marca_equipo`, `modelo_equipo`, `fech_fabricacion_equipo`, `problema_equipo`, `id_persona`, `id_tipo_servicio`, `tipo_atencion`) VALUES
+(4, 1, 'Celular', 'Xiaomi', 'Mi Pad 5', 2022, 'La bateria no dura nada', 22, 4, 'domicilio'),
+(5, 0, 'Celular', 'Xiaomi', 'Mi Pad 5', 2022, 'problema', 22, 1, 'taller');
 
 -- --------------------------------------------------------
 
@@ -94,20 +96,6 @@ INSERT INTO `compra_producto` (`id_detalle_compra`, `cantidad`, `precio`, `id_co
 (4, 3, 10, 3, 2),
 (5, 4, 10, 4, 2),
 (6, 5, 15, 4, 4);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cotizaciones`
---
-
-CREATE TABLE `cotizaciones` (
-  `id_cotizaciones` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
-  `monto` double NOT NULL,
-  `id_persona` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -186,10 +174,19 @@ CREATE TABLE `hoja_servicio` (
   `id_hoja_servicio` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `descripcion_hoja_servicio` varchar(500) NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_final` time NOT NULL,
-  `id_cita` int(11) NOT NULL
+  `hora` time NOT NULL,
+  `montoServicio` double NOT NULL,
+  `id_cita` int(11) NOT NULL,
+  `ref` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `hoja_servicio`
+--
+
+INSERT INTO `hoja_servicio` (`id_hoja_servicio`, `fecha`, `descripcion_hoja_servicio`, `hora`, `montoServicio`, `id_cita`, `ref`) VALUES
+(2, '2022-12-06', 'Se cambio la bateria', '05:34:00', 65, 5, 'fb10091f-07eb-48f5-8d65-fcc278f563f0'),
+(3, '2022-12-05', 'Se cambio la pantalla del dispositivo y se cambio la bandeja de entrada.', '17:50:00', 95, 5, '097be436-b9ab-48a0-8fc8-9adb4039eab1');
 
 -- --------------------------------------------------------
 
@@ -344,6 +341,29 @@ CREATE TABLE `servicio` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `servicio_repuestos`
+--
+
+CREATE TABLE `servicio_repuestos` (
+  `id_hoja_repuestos` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` double NOT NULL,
+  `id_hoja_servicios` int(11) NOT NULL,
+  `id_repuesto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `servicio_repuestos`
+--
+
+INSERT INTO `servicio_repuestos` (`id_hoja_repuestos`, `cantidad`, `precio`, `id_hoja_servicios`, `id_repuesto`) VALUES
+(1, 1, 65, 2, 2),
+(2, 1, 80, 3, 1),
+(3, 1, 15, 3, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipo_servicio`
 --
 
@@ -416,13 +436,6 @@ ALTER TABLE `compra_producto`
   ADD KEY `fk_cprod_compra` (`id_compra`);
 
 --
--- Indices de la tabla `cotizaciones`
---
-ALTER TABLE `cotizaciones`
-  ADD PRIMARY KEY (`id_cotizaciones`),
-  ADD KEY `fk_perso` (`id_persona`);
-
---
 -- Indices de la tabla `distrito`
 --
 ALTER TABLE `distrito`
@@ -486,6 +499,14 @@ ALTER TABLE `servicio`
   ADD KEY `fk_tipo_servicio` (`id_tipo_servicio`);
 
 --
+-- Indices de la tabla `servicio_repuestos`
+--
+ALTER TABLE `servicio_repuestos`
+  ADD PRIMARY KEY (`id_hoja_repuestos`),
+  ADD KEY `id_hoja_servicios` (`id_hoja_servicios`) USING BTREE,
+  ADD KEY `id_repuesto` (`id_repuesto`) USING BTREE;
+
+--
 -- Indices de la tabla `tipo_servicio`
 --
 ALTER TABLE `tipo_servicio`
@@ -507,7 +528,7 @@ ALTER TABLE `visita`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -520,12 +541,6 @@ ALTER TABLE `compra`
 --
 ALTER TABLE `compra_producto`
   MODIFY `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `cotizaciones`
---
-ALTER TABLE `cotizaciones`
-  MODIFY `id_cotizaciones` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `distrito`
@@ -543,7 +558,7 @@ ALTER TABLE `especialidad`
 -- AUTO_INCREMENT de la tabla `hoja_servicio`
 --
 ALTER TABLE `hoja_servicio`
-  MODIFY `id_hoja_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_hoja_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios`
@@ -582,6 +597,12 @@ ALTER TABLE `servicio`
   MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `servicio_repuestos`
+--
+ALTER TABLE `servicio_repuestos`
+  MODIFY `id_hoja_repuestos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `tipo_servicio`
 --
 ALTER TABLE `tipo_servicio`
@@ -618,12 +639,6 @@ ALTER TABLE `compra_producto`
   ADD CONSTRAINT `fk_cprod_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `cotizaciones`
---
-ALTER TABLE `cotizaciones`
-  ADD CONSTRAINT `fk_perso` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`);
-
---
 -- Filtros para la tabla `hoja_servicio`
 --
 ALTER TABLE `hoja_servicio`
@@ -644,6 +659,13 @@ ALTER TABLE `persona`
 ALTER TABLE `servicio`
   ADD CONSTRAINT `fk_hoja_servici` FOREIGN KEY (`id_hoja_servicio`) REFERENCES `hoja_servicio` (`id_hoja_servicio`),
   ADD CONSTRAINT `fk_tipo_servicio` FOREIGN KEY (`id_tipo_servicio`) REFERENCES `tipo_servicio` (`id_tipo_servicio`);
+
+--
+-- Filtros para la tabla `servicio_repuestos`
+--
+ALTER TABLE `servicio_repuestos`
+  ADD CONSTRAINT `servicio_repuestos_ibfk_1` FOREIGN KEY (`id_hoja_servicios`) REFERENCES `hoja_servicio` (`id_hoja_servicio`),
+  ADD CONSTRAINT `servicio_repuestos_ibfk_2` FOREIGN KEY (`id_repuesto`) REFERENCES `repuestos` (`id_repuesto`);
 
 --
 -- Filtros para la tabla `visita`
