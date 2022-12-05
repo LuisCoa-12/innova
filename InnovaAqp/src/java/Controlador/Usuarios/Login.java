@@ -3,7 +3,6 @@ package Controlador.Usuarios;
 import Modelo.Dao.DaoUsuario;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +24,7 @@ public class Login extends HttpServlet {
         List<Usuario> username = dao.login(correo, contrasena);
         if(!username.isEmpty()){
             Usuario us = username.get(0);
-            sesion.setAttribute("username", us.getNombre() + " " + us.getApePat() + " " + us.getApeMat());
-            sesion.setAttribute("imagen", us.getImagen());
+            sesion.setAttribute("user", us);
             switch (us.getIdRol()) {
                 case 1:
                     response.sendRedirect("vistas/administrador/index-admin.jsp");
@@ -35,13 +33,13 @@ public class Login extends HttpServlet {
                     response.sendRedirect("vistas/tecnico/index-tecnico.jsp");
                     break;
                 case 3:
-                    response.sendRedirect("vistas/usuario/index-user.jsp");
+                    response.sendRedirect("index.jsp");
                     break;
                 default:
                     break;
             }
         }else{
-            request.setAttribute("mensaje", "Correo o contraseña Incorrectos");
+            sesion.setAttribute("mensaje", "Correo o contraseña incorrectos");
             response.sendRedirect("login.jsp");
         }
     }

@@ -1,7 +1,7 @@
-package Controlador.Usuarios;
+package Controlador.Accesorios;
 
-import Modelo.Dao.DaoUsuario;
-import Modelo.Usuario;
+import Modelo.Accesorio;
+import Modelo.Dao.DaoAccesorios;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,19 +11,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-@WebServlet(name = "RegistroUsuario", urlPatterns = {"/RegistroUsuario"})
-public class RegistroUsuario extends HttpServlet {
+@WebServlet(name = "ActualizarAccesorio", urlPatterns = {"/ActualizarAccesorio"})
+public class ActualizarAccesorio extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Usuario us = new Usuario();
-        DaoUsuario dao = new DaoUsuario();
+        Accesorio ac = new Accesorio();
+        DaoAccesorios dao = new DaoAccesorios();
         ArrayList<String> lst = new ArrayList<>();
         File f = null;
         try {
@@ -33,13 +33,13 @@ public class RegistroUsuario extends HttpServlet {
             for (int i = 0; i < items.size(); i++) {
                 FileItem fileItem = (FileItem) items.get(i);
                 if (!fileItem.isFormField()) {
-                    f = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\InnovaAqp\\web\\assets\\images\\usuarios\\" + fileItem.getName());
+                    f = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\InnovaAqp\\web\\assets\\images\\accesorios\\" + fileItem.getName());
                     if(f.exists()){
-                        us.setImagen(fileItem.getName());
+                        ac.setImagen(fileItem.getName());
                     }
                     else{
                         fileItem.write(f);
-                        us.setImagen(fileItem.getName());
+                        ac.setImagen(fileItem.getName());
                     }
                 } else {
                     lst.add(fileItem.getString());
@@ -48,18 +48,19 @@ public class RegistroUsuario extends HttpServlet {
             }
         } catch (Exception e) {
         }
-        us.setNombre(lst.get(1));
-        us.setApellidos(lst.get(2));
-        us.setDni(Integer.parseInt(lst.get(3)));
-        us.setTelefono(Integer.parseInt(lst.get(4)));
-        us.setDireccion(lst.get(5));
-        us.setFechNacimiento(lst.get(6));
-        us.setCorreo(lst.get(7));
-        us.setContrasena(lst.get(8));
-        us.setIdDistrito(1);
-        if(us.getImagen() == null)
-            us.setImagen("empty-photo.png");
-        dao.registrar(us);
-        response.sendRedirect("login.jsp");
+        ac.setId((int) request.getSession().getAttribute("idActualizar"));
+        ac.setNombre(lst.get(0));
+        ac.setPeso(Double.parseDouble(lst.get(1)));
+        ac.setMarca(lst.get(2));
+        ac.setTipo(lst.get(3));
+        ac.setDescripcion(lst.get(4));
+        ac.setPrecio(Double.parseDouble(lst.get(5)));
+        ac.setFechFabricacion(lst.get(6));
+        if(ac.getImagen() == null || ac.getImagen().equals(""))
+            ac.setImagen((String)request.getSession().getAttribute("imagenActualizar"));
+        dao.actualizarAccesorio(ac);
+        List<Accesorio> lstAc = dao.consultarTodos();
+        request.getSession().setAttribute("cargarListas", lstAc);
+        response.sendRedirect("vistas/administrador/accesorios/listarAccesorios.jsp");
     }
 }

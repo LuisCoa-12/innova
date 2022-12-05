@@ -1,12 +1,8 @@
-
 package Modelo;
-
-import java.util.Date;
-
 public class Accesorio {
-    private String nombre, marca, tipo, descripcion, imagen;
+    private int id;
+    private String nombre, marca, tipo, descripcion, fechFabricacion, imagen;
     private double peso, precio;
-    private Date fechFabricacion;
 
     public String getNombre() {
         return nombre;
@@ -47,18 +43,19 @@ public class Accesorio {
     public double getPrecio() {
         return precio;
     }
-
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
-    public Date getFechFabricacion() {
+    public String getFechFabricacion() {
         return fechFabricacion;
     }
-
-    public void setFechFabricacion(Date fechFabricacion) {
+    public void setFechFabricacion(String fechFabricacion) {
         this.fechFabricacion = fechFabricacion;
     }
-    
-    
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 }

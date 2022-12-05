@@ -1,7 +1,7 @@
 package Modelo;
 
 public class Usuario {
-    private String nombre, apePat, apeMat, direccion, correo, contrasena, fechNacimiento, imagen;
+    private String nombre, apellidos, direccion, correo, contrasena, fechNacimiento, imagen;
     private int id, dni, telefono, idDistrito, idRol;
     
     public String getNombre() {
@@ -10,17 +10,11 @@ public class Usuario {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getApePat() {
-        return apePat;
+    public String getApellidos() {
+        return apellidos;
     }
-    public void setApePat(String apePat) {
-        this.apePat = apePat;
-    }
-    public String getApeMat() {
-        return apeMat;
-    }
-    public void setApeMat(String apeMat) {
-        this.apeMat = apeMat;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
     public String getDireccion() {
         return direccion;

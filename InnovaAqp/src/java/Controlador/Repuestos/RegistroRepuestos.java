@@ -1,7 +1,7 @@
-package Controlador.Usuarios;
+package Controlador.Repuestos;
 
-import Modelo.Dao.DaoUsuario;
-import Modelo.Usuario;
+import Modelo.Dao.DaoRepuesto;
+import Modelo.Repuesto;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,19 +11,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-@WebServlet(name = "RegistroUsuario", urlPatterns = {"/RegistroUsuario"})
-public class RegistroUsuario extends HttpServlet {
-
+@WebServlet(name = "RegistroRepuestos", urlPatterns = {"/RegistroRepuestos"})
+public class RegistroRepuestos extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Usuario us = new Usuario();
-        DaoUsuario dao = new DaoUsuario();
+        Repuesto re = new Repuesto();
+        DaoRepuesto dao = new DaoRepuesto();
         ArrayList<String> lst = new ArrayList<>();
         File f = null;
         try {
@@ -33,13 +32,13 @@ public class RegistroUsuario extends HttpServlet {
             for (int i = 0; i < items.size(); i++) {
                 FileItem fileItem = (FileItem) items.get(i);
                 if (!fileItem.isFormField()) {
-                    f = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\InnovaAqp\\web\\assets\\images\\usuarios\\" + fileItem.getName());
+                    f = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\InnovaAqp\\web\\assets\\images\\repuestos\\" + fileItem.getName());
                     if(f.exists()){
-                        us.setImagen(fileItem.getName());
+                        re.setImagen(fileItem.getName());
                     }
                     else{
                         fileItem.write(f);
-                        us.setImagen(fileItem.getName());
+                        re.setImagen(fileItem.getName());
                     }
                 } else {
                     lst.add(fileItem.getString());
@@ -48,18 +47,14 @@ public class RegistroUsuario extends HttpServlet {
             }
         } catch (Exception e) {
         }
-        us.setNombre(lst.get(1));
-        us.setApellidos(lst.get(2));
-        us.setDni(Integer.parseInt(lst.get(3)));
-        us.setTelefono(Integer.parseInt(lst.get(4)));
-        us.setDireccion(lst.get(5));
-        us.setFechNacimiento(lst.get(6));
-        us.setCorreo(lst.get(7));
-        us.setContrasena(lst.get(8));
-        us.setIdDistrito(1);
-        if(us.getImagen() == null)
-            us.setImagen("empty-photo.png");
-        dao.registrar(us);
-        response.sendRedirect("login.jsp");
+        re.setNombre(lst.get(1));
+        re.setTipo(lst.get(2));
+        re.setMarca(lst.get(3));
+        re.setStock(Integer.parseInt(lst.get(4)));
+        re.setCosto(Double.parseDouble(lst.get(5)));
+        if(re.getImagen() == null || re.getImagen().equals(""))
+            re.setImagen("empty-repuesto.jpg");
+        dao.registrarRepuesto(re);
+        response.sendRedirect("vistas/administrador/index-admin.jsp");
     }
 }
