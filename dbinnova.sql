@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2022 a las 16:27:38
+-- Tiempo de generación: 05-12-2022 a las 17:09:26
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -56,15 +56,18 @@ CREATE TABLE `compra` (
   `id_compra` int(11) NOT NULL,
   `fech_compra` date NOT NULL,
   `total` double NOT NULL,
-  `id_persona` int(11) NOT NULL
+  `id_persona` int(11) NOT NULL,
+  `ref` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`id_compra`, `fech_compra`, `total`, `id_persona`) VALUES
-(1, '2022-12-05', 260, 22);
+INSERT INTO `compra` (`id_compra`, `fech_compra`, `total`, `id_persona`, `ref`) VALUES
+(2, '2022-12-05', 45, 22, '2d3d53e5-8888-4ddb-9d59-e133eae0d730'),
+(3, '2022-12-05', 180, 22, 'bdd5bbac-0821-4094-932d-3c233fab12d3'),
+(4, '2022-12-05', 125, 22, 'efd47e63-779e-497d-9181-c769a28f077a');
 
 -- --------------------------------------------------------
 
@@ -75,10 +78,22 @@ INSERT INTO `compra` (`id_compra`, `fech_compra`, `total`, `id_persona`) VALUES
 CREATE TABLE `compra_producto` (
   `id_detalle_compra` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `subtotal` double NOT NULL,
+  `precio` double NOT NULL,
   `id_compra` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `compra_producto`
+--
+
+INSERT INTO `compra_producto` (`id_detalle_compra`, `cantidad`, `precio`, `id_compra`, `id_producto`) VALUES
+(1, 1, 35, 2, 3),
+(2, 1, 35, 3, 3),
+(3, 7, 15, 3, 4),
+(4, 3, 10, 3, 2),
+(5, 4, 10, 4, 2),
+(6, 5, 15, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -498,13 +513,13 @@ ALTER TABLE `cita`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `compra_producto`
 --
 ALTER TABLE `compra_producto`
-  MODIFY `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizaciones`
