@@ -10,12 +10,13 @@
     <body>
         <div>
             <main>
-                <div class="">
+                <div class="container">
                     <form class="login-form" action="<%=request.getContextPath()%>/Login" method="post">
-                        <h2>Iniciar sesion</h2>
+                        <h2 class="mt-4">Iniciar sesion</h2>
                         <%
-                            if (request.getAttribute("mensaje") != null) {
-                                out.print("<h3>" + request.getAttribute("mensaje") + "</h3>");
+                            if (session.getAttribute("mensaje") != null) {
+                        %><h5 style="color: #c70937;"><%=session.getAttribute("mensaje") %></h5><%
+                                session.removeAttribute("mensaje");
                             }
                         %>
                         <div class="form-group">

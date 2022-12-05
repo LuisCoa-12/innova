@@ -7,13 +7,13 @@
         <meta charset="utf-8" />
     </head>
 
-    <!<!-- PASSWORD EMAIL GENERATED eckxmuonbmiqzsgd -->
+    <!-- PASSWORD EMAIL GENERATED eckxmuonbmiqzsgd -->
     <jsp:include page="vistas/header.jsp"/>
     <body class="">
         <main>
             <div class="">
                 <form class="login-form" action="<%=request.getContextPath()%>/ForgotPassword" method="post">
-                    <h2>Reestablecer contraseña</h2>
+                    <h2 class="mt-4">Reestablecer contraseña</h2>
                     <div class="form-group">
                         <label for="login">Tu Correo electrónico</label><br>
                         <input type="email" placeholder="Correo electrónico" name="correo" required="required"/>

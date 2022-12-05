@@ -13,11 +13,11 @@
         <main>
             <div class="">
                 <form class="login-form" action="<%=request.getContextPath()%>/ValidateCode" method="post">
-                    <img src="assets/images/validarCodigo.jpg" style="width: 180px; border-radius: 90px"/>
+                    <img src="assets/images/validarCodigo.jpg" class="mt-4" style="width: 180px; border-radius: 90px"/>
                     <h3 style="font-size: 30px">Ingresa el codigo de verificacion</h3>
                     <%
                         if (request.getAttribute("mensaje") != null) {
-                            out.print("<h3>" + request.getAttribute("mensaje") + "</h3>");
+                            out.print("<h4>" + request.getAttribute("mensaje") + "</h4>");
                         }
                     %>
                     <div class="form-group">

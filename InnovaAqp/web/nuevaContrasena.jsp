@@ -12,7 +12,7 @@
             <main>
                 <div class="">
                     <form class="login-form" action="<%=request.getContextPath()%>/SetNewPassword" method="post">
-                        <h2>Reestablecer Contraseña</h2>
+                        <h2 class="mt-4">Reestablecer Contraseña</h2>
                         <div class="form-group">
                             <label for="password">Nueva Contraseña</label><br>
                             <input type="password" placeholder="Contraseña" name="new-passwd" required="required" maxlength="4096"/>
